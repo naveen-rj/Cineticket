@@ -1,0 +1,76 @@
+body {
+    background: #f4f4f4;
+    overflow-x: hidden;
+    font-family: sans-serif;
+
+}
+
+header {
+    background-color: #000;
+    color: #fff;
+    height: 130px;
+    padding: 30px;
+
+}
+
+nav {
+    float: right;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+nav a:hover {
+    background-color: #ccc;
+}
+
+main{
+    padding: 0px;
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+
+}
+
+.my-container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.fantasy {
+  font-family: fantasy;
+}
+
+.cursive {
+  font-family: cursive;
+}
+
+.sansserif {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+.slide {
+    margin-top: 0;
+}
+
+.carousel-inner {
+    background: radial-gradient(#3a3a3a, black);
+}
+
+.carousel-inner img {
+    height: 700px;
+    margin: 0px auto;
+}
+

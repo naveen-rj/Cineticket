@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Profile | Cineticket
+{% endblock %}
+
+
+{% block style %}
+<style>
+
+    .bg {
+        background-image: url({% static 'image/bg_profile.jpeg' %});
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .content {
+        margin-top: 50px;
+        margin-right: 20px;
+        color: #000;
+    }
+
+    .form {
+    padding: 10px;
+    }
+
+    .profile-pic-container {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 auto;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-pic-label {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 100px;
+        cursor: pointer;
+        background-color: #f0f0f0;
+        transition: background-color 0.3s;
+    }
+
+    .profile-pic-label:hover {
+        background-color: #e0e0e0;
+    }
+
+    .profile-pic-label img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    #profile-pic-upload {
+        display: none;
+    }
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-0 mb-5">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}" role="alert" style="text-align: center;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-7 bg">
+            </div>
+            <div class="col-5">
+                <div class="col-12 content">
+                    <h1 style="text-align: center;">Profile</h1>
+                        <form method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group row justify-content-center">
+
+                                <div class="profile-pic-container">
+                                    <input type="file" id="profile-pic-upload" name="profile_pic" accept="image/*" style="display: none;">
+                                    <label for="profile-pic-upload" class="profile-pic-label">
+                                    <img src="{% if user.userprofile.profile_pic %}{{ user.userprofile.profile_pic.url }}{% else %}{% static 'image/default_profile.png' %}{% endif %}" alt="Profile Picture">
+                                    </label>
+                                </div>
+
+                                <div class="col-12 p-2">
+                                    <label>Username</label>
+                                    <input type="text" readonly value="{{user.username}}" class="form-control" name="username">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>First Name</label>
+                                    <input type="text" value="{{user.first_name}}" class="form-control" name="first_name">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>Last Name</label>
+                                    <input type="text" value="{{user.last_name}}" class="form-control" name="last_name">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>Email Address</label>
+                                    <input type="email" value="{{user.email}}" class="form-control" name="email">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>Mobile Number</label>
+                                    <input type="tel" pattern="[0-9]{10}" title="Please enter a 10-digit mobile number" value="{{user.userprofile.mobile_number}}" class="form-control" name="mobile_number">
+                                </div>
+                                <div class="col-12 p-2">
+                                    <label>Old Password</label>
+                                    <input type="password" class="form-control" name="old_password">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>New Password</label>
+                                    <input type="password" class="form-control" name="new_password1">
+                                </div>
+                                <div class="col-6 p-2">
+                                    <label>Confirm New Password</label>
+                                    <input type="password" class="form-control" name="new_password2">
+                                </div>
+                                <br><br>
+                                <div class="col-12 mt-4 p-2">
+                                    <button type="submit" class="btn btn-secondary btn-lg btn-block submit">Update</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

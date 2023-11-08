@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Movie | {{movie.title}}
+{% endblock %}
+
+{% block style %}
+<style>
+
+    .bg {
+      background-image: linear-gradient(to left, rgba(138, 181, 206, 0.5), #000 60%), url({{ movie.image.url }});
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100vh;
+    }
+
+    .text-over {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the text both horizontally and vertically */
+      color: #fff;
+      font-size: 24px;
+      text-align: center;
+    }
+
+    .bl {
+        background: black;
+    }
+
+    .poster {
+        width: 300px;
+        height: 400px;
+        position: absolute;
+        top: 200px;
+        left: 100px;
+    }
+
+    .content {
+        display: inline-block;
+        position: relative;
+        left: 400px;
+        bottom: 50px;
+        margin-top: 150px;
+        color: #fff;
+        margin-left: 50px;
+    }
+
+    .banner {
+        background: #fff;
+        border-radius: 50px;
+        color: #000;
+        border: solid 1px whitesmoke;
+        padding: 5px 10px;
+        text-align: center;
+        width: 60%;
+    }
+
+    .title {
+        font-size: 50px;
+        padding: 10px 0px;
+    }
+
+    .rate {
+        margin: 10px 0px;
+        margin-left: 30px;
+    }
+
+    .rate i {
+        text-shadow: 0 0 5px white;
+        color: #cc2900;
+    }
+
+    .desc {
+        margin: 5px 50px 5px 5px;
+    }
+
+    .btn-custom {
+        background: linear-gradient(320deg, blue, blue);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        width: 230px;
+        margin: 5px;
+    }
+
+    .btn-custom i {
+        padding: 0px 5px;
+    }
+
+    .btn-custom:hover {
+        color: #000;
+        border: solid 2px white;
+        background: white;
+    }
+
+    .time {
+        margin: 5px;
+        display: inline;
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid p-0">
+        <div class="bg">
+            <img src="{{ movie.image.url}}" class="poster">
+                <div class="col-6 content">
+                    <h1 class="title font-weight-bold">{{movie.title}}</h1>
+                    <h2 class="rate"><i class="fa-solid fa-star text-danger"></i> {{movie.rating}}/10 </h2>
+                    <h4 class="banner">{{movie.genre}}</h4>
+                    <h4 style="position: absolute; left: 65px;"> <i class="fa-solid fa-clock"></i>
+                        {{movie.runtime}} | <i class="fa-solid fa-calendar-days"></i> {{movie.release_date}} </h4>
+                    <p class="desc mt-4" style="position: relative; top: 30px;">{{movie.description}}</p><br>
+                    <br><br>
+                    <button type="button" id="btn-trailer" class="btn btn-lg btn-custom">Trailer <i
+                            class="fa fa-play-circle"></i>
+                    </button>
+                    <button type="button" id="btn-booking" class="btn btn-lg btn-custom">Book tickets
+                        <i class="fa-solid fa-ticket"></i></button>
+
+                </div>
+
+                <div class="modal fade" id="trailer" tabindex="-1">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <iframe width="800px" height="500px" src="{{movie.trailer}}"
+                                allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="shows" tabindex="-1" role="dialog">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title"> {{movie.title}} | Movie Showtimes </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container-fluid">
+
+                                    {% for cinema in cinemas %}
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h3>{{cinema.name}}: {{cinema.location}}</h3>
+
+                                        </div>
+                                        <div class="col-12 mb-4">
+                                            {% for show in cinema.showtime_set.all %}
+                                            {% if show.movie_id == movie.id %}
+                                            <h5 class="time"><a href="/seat_selection/{{show.id}}"
+                                                    class="badge badge-success">{{show.showtime}}</a></h5>
+                                            {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block JQuery %}
+<script>
+        $('#btn-trailer').click(function () {
+            $('#trailer').modal('toggle')
+        });
+
+        $('#btn-booking').click(function () {
+            $('#shows').modal('toggle')
+        });
+</script>
+{% endblock %}
+

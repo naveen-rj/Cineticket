@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Movies | {{ cinema.name }} | {{ cinema.location }}
+{% endblock %}
+
+{% block style %}
+<style>
+    main {
+    padding: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h2 class="font-weight-bold my-5" style="margin-left: 150px;">Movies at {{ cinema.name }}</h2>
+
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="row">
+                    {% for movie in movies %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-5">
+                        <a href="/movies/{{movie.pk}}" class="card-link">
+                            <div class="card shadow" style="width: 18rem; margin:0px auto;">
+                                <img src="{{ movie.image.url }}" class="card-img-top" height="380px">
+                                <div class="card-body bg-secondary text-white">
+                                    <h5 class="card-title">{{ movie.title }}</h5>
+                                    <p class="card-text">{{ movie.genre }}</p>
+                                    <p class="card-text"><i class="fa fa-heart" style="color: red;"></i> {{ movie.rating }}/10</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% empty %}
+                        <h2 style="margin-bottom: 110px;">No Movies Available</h2>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Ticket | {{ ticket.showtime }}
+{% endblock %}
+
+{% block style %}
+<style>
+  body {
+    background: #f4f4f4;
+    color: #006666;
+  }
+
+  .title {
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+  }
+
+  .card {
+    margin: 100px auto;
+    border-radius: 10px;
+    border: none;
+  }
+
+  .top-banner {
+    margin-top: 30px;
+    background: #006666;
+    text-align: right;
+}
+
+  .location {
+    line-height: 40px;
+    background: red;
+    color: white;
+    font-size: 20px;
+    border: solid 1px;
+    border-right: 0px;
+    border-radius: 0px 50px 50px 0px;
+  }
+
+  h3 span {
+    font-weight: 400;
+  }
+
+  .dotted-line {
+    height: 260px;
+    border-left: 5px dotted #000;
+  }
+
+  .fantasy {
+  font-family: fantasy;
+}
+
+ .fixed-text {
+  position: absolute;
+  bottom: 10px;
+  left: 50px;
+  }
+
+</style>
+{% endblock %}
+
+{% block content %}
+  {% if messages %}
+          {% for message in messages %}
+          <div class="alert alert-{{ message.tags }}" role="alert" style="text-align: center;">
+              {{ message }}<a href="/accounts/bookings/" class="card-link">  View Bookings</a>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+          {% endfor %}
+  {% endif %}
+
+  <div class="container-fluid">
+    <h2 class="font-weight-bold mb-0 mt-5 text-secondary" style="text-align:center;">E-Ticket</h2>
+    <div class="row">
+      <div class="col-10 card shadow mt-5" style="position: relative;"]>
+        <div class="row justify-content-around top-banner title">
+          <div class="col-2">
+            <h2 style="text-align:center">No. {{ticket.id}}</h2>
+          </div>
+          <div class="col-8">
+            <h2> <i class="fa-solid fa-film"></i> CineTicket.com</h2>
+          </div>
+
+        </div>
+        <div class="row mt-4 mb-4">
+          <div class="col-3" style="text-align: center;">
+            <h2 style="text-align: center;"><i class="fa-solid fa-masks-theater"></i></h2>
+            <h3 class="text-secondary">{{ ticket.cinema }}, {{ ticket.cinema.location }}</h3>
+            <br>
+            <h3 class="font-weight-bold">S: {{ ticket.seats }}</h3>
+            <br>
+            <h5 class="fantasy">DATE: {{ ticket.showtime.date }}</h5>
+            <h5 class="fantasy">Thankyou visit again!</h5>
+          </div>
+          <div class="dotted-line"></div>
+          <div class="col-8">
+            <div class="row">
+              <div class="col-6">
+                <h1 class="font-weight-bold">{{ ticket.movie }}</h1>
+                <h3>Booking No. <span> {{ticket.id}}</span> </h3>
+                <br>
+                <h3 class="font-weight-bold">SEAT:<span class="font-weight-bold"> {{ticket.seats}}</span> </h3>
+
+              </div>
+              <div class="col-5">
+
+                <h3>Date :<span> {{ticket.showtime.date}}</span> </h3>
+                <h3>Time :<span> {{ticket.showtime.showtime}}</span> </h3>
+                <br>
+                <h3>Tickets :<span> {{ticket.number_of_tickets}}</span> </h3>
+                <h3>Price :<span> ₹{{ticket.total_amount}}</span> </h3>
+
+              </div>
+              <div class="col-1">
+                <img src="{% static 'image/barcode.png' %}">
+              </div>
+              <div class="col-12 location">
+                 <i class="fa-solid fa-location-dot"></i> {{ticket.cinema}} | <span> {{ticket.cinema.location}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

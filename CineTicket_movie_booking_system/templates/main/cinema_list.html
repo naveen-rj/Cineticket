@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Cinemas | Cineticket
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+    <h2 class="my-5 font-weight-bold" style="margin-left: 150px;">Cinemas</h2>
+
+        <div class="row m-4">
+            {% for cinema in object_list %}
+                <div class="col-sm-3">
+                    <div class="card border-success mb-3">
+                        <a href="{% url 'cinema_movies' cinema.id %}" class="card-link text-secondary">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ cinema.name }}</h5>
+                            <p class="card-text">{{ cinema.location }}</p>
+                        </div>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+{% endblock %}

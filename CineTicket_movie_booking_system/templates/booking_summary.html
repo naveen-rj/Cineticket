@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Booking Summary | {{ show }}
+{% endblock %}
+
+{% block style %}
+<style>
+
+       .container {
+            text-align: center;
+            max-width: 700px;
+            max-height: 400px;
+            margin: 100px auto;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+</style>
+{% endblock %}
+
+{% block content %}
+    <h2 class="font-weight-bold mt-5 mb-5" style="text-align: center;">Booking Summary</h2>
+    <div class="container mt-0">
+        <div class="row">
+            <div class="col">
+                <form id="myForm" method="post" action="{% url 'confirm_booking' show.id %}">
+                    {% csrf_token %}
+                    <h4 class="mb-4">{{ show }}</h4>
+                    <div class="row mb-4">
+                        <div class="col mr-0 pr-0">
+                            <h6>Seat: {{ seats }} ({% if ticket_count == 1 %}{{ ticket_count }} Ticket{% else %}{{ ticket_count }} Tickets{% endif %})</h6>
+                            <h6>Booking fee:</h6>
+                            <h6 class="mt-3">Total Amount:</h6>
+                        </div>
+                        <div class="col ml-0 pl-0">
+                            <h6>Rs. {{ amount }}</h6>
+                            <h6> Rs.{{ booking_fee }}</h6>
+                            <h6 class="mt-3"> ₹{{ total_amount }}</h6>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-lg" name="action" value="confirm">Confirm Booking</button>
+                    <button type="submit" class="btn btn-secondary btn-lg" name="action" value="cancel">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

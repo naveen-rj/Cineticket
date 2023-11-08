@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+About Us | Cineticket
+{% endblock %}
+
+{% block style %}
+    <style>
+        .container {
+        text-align: justify;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+    <img src="{% static 'image/bg_about.jpg' %}" style="width:100%; height: 450px;">
+    <div class="container mb-5">
+        <h2 class="font-weight-bold mt-5">{{ title }}</h2>
+        <p>{{ content | linebreaks }}</p>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+My Bookings | Cineticket
+{% endblock %}
+
+
+{% block content %}
+    <h2 class="my-5 font-weight-bold" style="margin-left: 150px;">My Bookings</h2>
+
+    <div class="container-fluid" style="margin-bottom: 120px;">
+            <table class="table table-bordered text-center">
+                <thead>
+                    <tr class="bg-secondary text-white">
+                        <th>Booking No.</th>
+                        <th>Show</th>
+                        <th>Seats</th>
+                        <th>Booking Date</th>
+                        <th>Ticket</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in bookings %}
+                        <tr>
+                            <td>{{ booking.id }}</td>
+                            <td>{{ booking.showtime }}</td>
+                            <td>{{ booking.seats }}</td>
+                            <td>{{ booking.date }}</td>
+                            <td><a href="{% url 'ticket' booking.pk %}" class="card-link">View Ticket</a> </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="cursive">You don't have any bookings yet!</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+    </div>
+
+{% endblock %}

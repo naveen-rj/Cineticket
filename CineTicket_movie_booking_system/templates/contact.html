@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Contact Us | Cineticket
+{% endblock %}
+
+{% block content %}
+    <img src="{% static 'image/bg_contact.jpg' %}" style="width:100%; height: 450px;">
+
+    <div class="container">
+        <h2 class="my-5 font-weight-bold">Contact Us</h2>
+
+            <p>We are here to help you with any questions or concerns you may have about cineticket.com. Please feel free to contact us using the following methods:</p>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><i class="fas fa-envelope"></i> support@cineticket.com</li>
+            <li class="list-group-item"><i class="fas fa-phone"></i> 1800-000-1111</li>
+            <li class="list-group-item"><i class="fas fa-comments"></i> Live Chat</li>
+        </ul>
+
+        <h3 class="my-5">Write to us</h3>
+
+        <form action="/contact/" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="nameHelp" placeholder="Enter your name">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Enter your email">
+            </div>
+
+            <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" name="message" id="message" rows="3" placeholder="Type message here"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <h3 class="mt-5 mb-4">Working Hours</h3>
+
+            <p>Our customer service office is open all day, 9:00am to 8:00pm.</p>
+
+        <p class="mb-5">Thank you for contacting cineticket.com!</p>
+    </div>
+
+
+{% endblock %}

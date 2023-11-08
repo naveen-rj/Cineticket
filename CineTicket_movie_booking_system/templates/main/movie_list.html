@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Movies | Cineticket
+{% endblock %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+    <h2 class="mt-5 font-weight-bold" style="margin-left: 150px;">Movies</h2>
+        <form action="/movies/" method="get" class="mb-4" style="margin-left: 150px;">
+            <div class="row">
+                <div class="col-3">
+                    <input class="form-control" type="text" name="cinema" placeholder="Search by Cinema name  eg: Cinepolis">
+                </div>
+                <div class="col-3">
+                    <input class="form-control" style="display: inline-block;" type="date" name="showtime_date" placeholder="Showtime date" title="Optional">
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-secondary btn-md" type="submit" value="Search">
+                </div>
+            </div>
+        </form>
+    </div>
+    <br>
+    <br>
+    {% if object_list %}
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-12">
+                <div class="row">
+                    {% for movie in object_list %}
+                    <div class="col-12 col-md-6 col-lg-4 mb-5">
+                        <a href="/movies/{{movie.pk}}" class="card-link m-0">
+                            <div class="card shadow" style="width: 18rem; margin:0px auto;">
+                                <img src="{{ movie.image.url }}" class="card-img-top" height="380px">
+                                <div class="card-body bg-secondary text-white">
+                                    <h5 class="card-title">{{ movie.title }}</h5>
+                                    <p class="card-text">{{ movie.genre }}</p>
+                                    <p class="card-text"><i class="fa fa-heart" style="color: red;"></i> {{ movie.rating }}/10</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+        <h2 class="ml-5" style="margin-bottom: 150px;">No Matches Found</h2>
+    {% endif %}
+
+{% endblock %}
