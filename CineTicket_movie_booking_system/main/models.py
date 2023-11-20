@@ -14,13 +14,16 @@ class Cinema(models.Model):
 class Movie(models.Model):
     title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='movies/images', null=True)
-    genre = models.CharField(max_length=255)
+    genre = models.CharField(max_length=255, default='Action | Thriller')
     release_date = models.DateField()
     runtime = models.CharField(max_length=100, default='2h 45min')
     description = models.TextField()
     rating = models.DecimalField(max_digits=2, decimal_places=1, null=True)
     trailer = models.CharField(max_length=255, null=True)
-    cinema = models.ForeignKey(Cinema, on_delete=models.CASCADE)
+    cinemas = models.ManyToManyField(Cinema)
+
+    class Meta:
+        ordering = ('-release_date',)
 
     def __str__(self):
         return '{}'.format(self.title)
@@ -34,7 +37,7 @@ class Showtime(models.Model):
     booking_fee = models.IntegerField(null=True)
 
     class Meta:
-        ordering = ('cinema', 'showtime')
+        ordering = ('cinema', '-date')
 
     def __str__(self):
         return '{} | {} | {}'.format(self.cinema, self.movie, self.showtime)
