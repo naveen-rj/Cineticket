@@ -54,7 +54,10 @@ class SearchListView(ListView):
 # View for movies based on cinema
 def cinema_movies(request, cinema_id):
     cinema = get_object_or_404(Cinema, pk=cinema_id)
-    movies = cinema.movie_set.all()
+
+    # Get movies based on cinema
+    movies = Movie.objects.filter(showtime__cinema=cinema).distinct()
+
     return render(request, 'movies_page.html', {'cinema': cinema, 'movies': movies})
 
 

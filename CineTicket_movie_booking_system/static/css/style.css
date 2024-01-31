@@ -5,13 +5,24 @@ body {
 
 }
 
+
 header {
     background-color: #000;
     color: #fff;
-    height: 130px;
+    height: 150px;
     padding: 30px;
 
 }
+
+@media only screen and (max-width: 600px) {
+    header {
+        background-color: #000;
+        color: #fff;
+        height: 190px;
+        padding: 30px;
+    }
+}
+
 
 nav {
     float: right;
@@ -42,11 +53,11 @@ footer {
 
 .my-container {
     width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;
+    padding-right: 1%;
+    padding-left: 1%;
     margin-right: auto;
-    margin-left: 20px;
-    margin-top: 10px;
+    margin-left: 1%;
+    margin-top: 1%;
 }
 
 .fantasy {

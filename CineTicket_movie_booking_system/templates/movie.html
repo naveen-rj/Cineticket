@@ -152,10 +152,10 @@ Movie | {{movie.title}}
                                         </div>
                                         <div class="col-12 mb-4">
                                             {% for show in cinema.showtime_set.all %}
-                                            {% if show.movie_id == movie.id %}
-                                            <h5 class="time"><a href="/seat_selection/{{show.id}}"
-                                                    class="badge badge-success">{{show.showtime}}</a></h5>
-                                            {% endif %}
+                                                {% if show.movie_id == movie.id %}
+                                                <h5 class="time"><a href="/seat_selection/{{show.id}}"
+                                                        class="badge badge-success">{{show.showtime}}</a></h5>
+                                                {% endif %}
                                             {% endfor %}
                                         </div>
                                     </div>
